@@ -1,0 +1,172 @@
+code modify log:
+
+date format---MM/DD/YYYY
+
+12/2/2016  1.add ODI "RearCrossTrafficAlertOptions" initialization (FUID=47 ODIIndication ID=2) in "Function_FUCLASS47_Initialization()";
+           2.add "FUClass47[2] = 0" initialization in "Function_FUCLASS47_ValueSetting(WPARAM wParam, LPARAM lParam)";
+           3.add ODI "RearCrossTrafficAlertOptions" signal setting (FUID=47 ODIIndication ID=2) in "Function_FUCLASS47_ValueSetting(WPARAM wParam, LPARAM lParam)";
+           
+12/12/2016 1.modify simulator version to 1.8.3.0;
+           2.change IDD name in IDD_PLUGINFORSAINT_DIALOG;
+           
+12/14/2016 1.change the design of HAVC initialize function, you can configure parameters firstly and click the initialize button secondly;
+           2.code changed parts are marked with "---12/13/2016 modify" in "AirCondition.Designer.cs" and "AirConditions.cs";
+           
+           3.add support for three climate zones modes---"single" or "Dual" or "linked"
+             as the same time the "initialize" button is clicked, the climate zone will display "single" if you haven't select the box "Front_RightSetTempOn";
+             code changed parts are marked with "---12/14/2016 modify" in "PlugIn For SaintDlg.cpp";
+           4.update simulator version to 1.8.3.1;
+           
+12/15/2016 1.add per-selection options--"temp unit"--"0.5°C" and "1°C" buttons in "AirConditions.cs[Design]";
+           2.modify the function of temp plus and minus, so as the time toggling temp uint buttons, it will initialize the temp display;
+           3.update simulator version to 1.8.3.2;
+           
+03/21/2017 1.define Function--Saint2Config in "Public Parameter.cpp" and "Public Parameter.h";
+           2.add Function--Saint2Config in "FormControl::Box_Devices_SelectedIndexChanged";
+           3.add Function--Saint2Config in "CPlugInForSaintDlg::Menu_Event"
+           
+03/22/2017 1.rename the simulator to "E2LB simulator";
+           2.update the code version from 1.8.3.4 to 1.8.4.0, as the APA is a new module but not a function;
+           3.change the simulator caption display to "E2LB simulator";
+           4.modify the MenuForm.cs[Design]->Simulator Setting->Can Setting->Btn_500 to Btn_SWC1, and text to SWC1;
+           5.text "Avaliable Ports:" in the MainForm.cs[Design] to "Available Ports";
+           6.remove "Box_DrId" combo box and "Driver Identifier:" label;
+           7.remove MESSAGE_SYSTEM_POWER_MODE_BACKUP_IPC_HS and add MESSAGE_SYSTEM_POWER_MODE_BACKUP_IPC_LS;
+           8.remove Function_System_Power_Mode_Backup_IPC_HS and add Function_System_Power_Mode_Backup_IPC_LS;
+           9.remove System_Power_Mode_Backup_IPC_HS message and add System_Power_Mode_Backup_LS message;
+           10.remove MESSAGE_PPEI_Platform_General_Status and add MESSAGE_System_Power_Mode_LS;
+           11.remove Function_PPEI_Platform_General_Status and add Function_System_Power_Mode_LS;
+           12.remove PPEI_Platform_General_Status message and add System_Power_Mode_LS message;
+           13.remove T_Periodic_10min;
+           14.add Function_Send_System_Power_Mode_LS;
+           15.add Box_SysBkUpPwrMdEn to connect to Function_System_Power_Mode_Backup_IPC_LS;
+           
+03/23/2017
+           1.add Function_System_Power_Mode_Backup_IPC_LS in circle message;
+           2.modify power mode logic;
+           
+           3.remove Body_Information_HS CAN message and add Driver_Door_Status CAN message;
+           4.remove Function_Body_Information_HS and add Function_Driver_Door_Status--8C 63 00 40 00/01;
+           5.remove MESSAGE_BODY_INFORMATION_HS and add MESSAGE_Driver_Door_Status;
+           6.remove Function_Door_Action;
+           7.remove MESSAGE_DOOR_ACTION;
+           
+           8.modify power mode backup logic;
+           9.add VNMF_LS_621_BCM CAN message--06 21 00 40 00 00 00 00 00 00;
+           10.add Function_VNMF_LS_621_BCM;
+           11.add Engine_Information_1_LS CAN message--90 2C A0 40 00 00 00 00 00 00 00 00;
+           12.add Function_Engine_Information_1_LS;
+           13.remove Bar_StrWhAng and PPEI_Steering_Wheel_Angle CAN message and Function_PPEI_Steering_Wheel_Angle;
+           
+03/27/2017
+           1.Box_SysBkUpPwrMdEn change its text from "System Backup Power Mode To Enable" to "Enable Power Backup";
+           2.Box_PMEnable change its text from "Power Moding To Disable" to "Validate Power Mode";
+           
+           3.remove original codes connected to Bar_PDAjrSwAtv;
+           4.add CAN message Passenger_Door_Status_LS;
+           5.add Function_Passenger_Door_Status_LS;
+           6.add MESSAGE_Passenger_Door_Status_LS;
+           
+           7.remove original codes connected to Bar_RLDoorAjarSwAct;
+           8.add Bar_RLDoorAjarSwAct_Scroll;
+           9.add MESSAGE_Left_Rear_Door_Status;
+		   10.add CAN message Left_Rear_Door_Status;
+           11.add Function_Left_Rear_Door_Status;
+           
+           12.remove original codes connected to Bar_RRDoorAjarSwAct;
+           13.add Bar_RRDoorAjarSwAct_Scroll;
+           14.add MESSAGE_Right_Rear_Door_Status;
+           15.add CAN message Right_Rear_Door_Status;
+           16.add Function_Right_Rear_Door_Status;
+           
+           17.add Bar_VehMovState_Scroll;
+           18.add MESSAGE_Power_Mode_Info_LS;
+           19.add CAN message Power_Mode_Info_LS;
+           20.add Function_Power_Mode_Info_LS;
+           
+           21.add Function_Build_Command(int Message_Title, int ID_Length, int Data_Length);
+           22.remove Function_Body_Information_2_HS;
+           23.remove MESSAGE_BODY_INFORMATION_2_HS;
+
+03/28/2017
+           1.keyboardframe->Create(IDD_KEYBOARD_DIALOG);
+             ->keyboardframe->Create(IDD_KEYBOARD_DIALOG, GetDesktopWindow());
+             to enable windows switch;
+		   
+           2.modify interface style and windows swith display;
+           
+03/29/2017
+           1.add Bar_VehSpdAvgDrvn;
+           2.add Bar_VehSpdAvgDrvn_Scroll;
+           3.add CAN message Vehicle_Speed_Information;
+           4.add Function_Vehicle_Speed_Information;
+           5.add Lab_VehSpdAvgDrvn and speed display logic;
+           
+           6.add Bar_VehSpdAvgNDrvn;
+           7.add Bar_VehSpdAvgNDrvn_Scroll;
+           8.add Lab_VehSpdAvgNDrvn and speed display logic;
+           
+           9.remove MESSAGE_PPEI_VEHICLE_SPEED_AND_DISTANCE;
+           10.remove Function_PPEI_Vehicle_Speed_and_Distance;
+           11.remove CAN message PPEI_Vehicle_Speed_and_Distance;
+           
+           12.add Box_VehSpdAvgDrvnV;
+           13.add Box_VehSpdAvgNDrvnV;
+           
+           14.remove VehicleInfoForm->Lab_VehSpdAvgDrvn;
+           15.remove VehicleInfoForm->Lab_VehSpdAvgNDrvn;
+           16.remove VehicleInfoForm->label2;
+           17.remove VehicleInfoForm->label6;
+           18.remove VehicleInfoForm->Bar_VehSpdAvgDrvn;
+           19.remove VehicleInfoForm->Bar_VehSpdAvgNDrvn;
+           20.remove VehicleInfoForm->Box_VehSpdAvgDrvnV;
+           21.remove VehicleInfoForm->Box_VehSpdAvgNDrvnV;
+           22.remove VehicleInfoForm->label4;
+           23.remove VehicleInfoForm->label5;
+           24.remove VehicleInfoForm->Box_DistRollCntAvgDrvnSrc;
+           25.remove VehicleInfoForm->Box_VehSpdAvgDrvnSrc;
+           26.remove VehicleInfoForm->groupBox3;
+           27.remove VehicleInfoForm->Box_StWhAnVDA;
+           28.remove CAN signal StWhAnVDA;
+           29.remove VehicleInfoForm->groupBox7;
+
+03/30/2017
+           1.add MenuFormm->Btn_APA;
+		   2.add Btn_APA_Click;
+		   3.MESSAGE_MENU_CONTROL 10;
+		   4.add APA HMI;
+		   5.add APAForm.cpp, APAForm.h;
+		   6.add APAFrame.cpp, APPFrame.h;
+		   7.add "WinFormsControl<Form_Control::APA>     Ctrl_APAForm;"
+		   8.add APA IDD_APA;
+		   9.add Btn_APAkey;
+		   10.add Box_APAUnavaible;
+		   11.add MESSAGE_Vehicle_Speed_Information;
+		   12.add Bar_VehSpdAvgDrvn_Scroll;
+		   13.add Bar_VehSpdAvgNDrvn_Scroll;
+		   14.add ::SendMessage(apahand, MESSAGE_VehSpeed, 0, 0);
+
+03/31/2017
+		   1.step 0: before pressing APA key, detect if P gear and slow down, give a visible step explain;
+           2.step 1: when pressing APA key, detect if display not gained, give a visible step explain;
+           3.step 2: based on step 1, detect if display gained, give a visible step explain;
+           4.step 3: based on step 2, detect if APA key twice pressed, give a visible step explain;
+           5.step 4: detect APA touch and parking mode choosen, give a visible step explain;
+           6.step 5: based on step 4, detect if a parking slot found, give a visible step explain;
+
+04/01/2017
+		   1.modify step 0: before pressing APA key, detect if P/D gear and slow down, give a visible step explain;
+           2.modify step 4: based on step 2, detect APA touch and parking mode choosen, give a visible step explain;
+           3.modify step 5: based on step 4/7 and forward state, detect if a parking slot found, give a visible step explain;
+           4.step 6: based on step 4/7 and switch to reverse, detect if a parking slot not found, exit APA, give a visible step explain;
+           5.step 7: based on step 5, continue forward 15s, re-search parking slot, give a visible step explain;
+           6.step 8: based on step 5, detect if switch to reverse, active autosteering, give a visible step explain,
+		     backwards speed 10, 10s, give a visible step explain;
+		   7.step 9: based on step 8, dectect if swith to forward, foward speed 10, 10s, give a visible step explain;
+		   8.step 8 and step 9 if count 5 times, parking complete, give a visible step explain;
+		   9.remove MSG_ManueverProgress_Non() per 200ms;
+		   为使用方便，主窗口和APA窗口打开时在同一水平线上并列
+		   C5 1100 0101
+		   C4 1100 0100
+		   34 0011 0100
+

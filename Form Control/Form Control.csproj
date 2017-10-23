@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC0BBC97-E0C5-441F-9D16-C6C1F5203224}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Form_Control</RootNamespace>
+    <AssemblyName>NGK Form</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NGK Form, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NGK Form.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessOperation.cs" />
+    <Compile Include="AirCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AirCondition.Designer.cs">
+      <DependentUpon>AirCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="APA.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="APA.Designer.cs">
+      <DependentUpon>APA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChimeForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChimeForm.Designer.cs">
+      <DependentUpon>ChimeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customization.Designer.cs">
+      <DependentUpon>Customization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DID.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DID.Designer.cs">
+      <DependentUpon>DID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DTCForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DTCForm.Designer.cs">
+      <DependentUpon>DTCForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeyBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KeyBoard.Designer.cs">
+      <DependentUpon>KeyBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MemoryCheck.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MemoryCheck.Designer.cs">
+      <DependentUpon>MemoryCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NodeForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NodeForm.designer.cs">
+      <DependentUpon>NodeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParkAssistantForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ParkAssistantForm.Designer.cs">
+      <DependentUpon>ParkAssistantForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Personalization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Personalization.Designer.cs">
+      <DependentUpon>Personalization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PITS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PITS.Designer.cs">
+      <DependentUpon>PITS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReadDTC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReadDTC.Designer.cs">
+      <DependentUpon>ReadDTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingForm.Designer.cs">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CPID.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CPID.Designer.cs">
+      <DependentUpon>CPID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hvac.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hvac.Designer.cs">
+      <DependentUpon>Hvac.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VehicleInfoForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VehicleInfoForm.Designer.cs">
+      <DependentUpon>VehicleInfoForm.cs</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AirCondition.resx">
+      <DependentUpon>AirCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="APA.resx">
+      <DependentUpon>APA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChimeForm.resx">
+      <DependentUpon>ChimeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CPID.resx">
+      <DependentUpon>CPID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customization.resx">
+      <DependentUpon>Customization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DID.resx">
+      <DependentUpon>DID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DTCForm.resx">
+      <DependentUpon>DTCForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hvac.resx">
+      <DependentUpon>Hvac.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KeyBoard.resx">
+      <DependentUpon>KeyBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoryCheck.resx">
+      <DependentUpon>MemoryCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NodeForm.resx">
+      <DependentUpon>NodeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParkAssistantForm.resx">
+      <DependentUpon>ParkAssistantForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Personalization.resx">
+      <DependentUpon>Personalization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PITS.resx">
+      <DependentUpon>PITS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReadDTC.resx">
+      <DependentUpon>ReadDTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingForm.resx">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VehicleInfoForm.resx">
+      <DependentUpon>VehicleInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LEDOFF2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LED_ON.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="20130319172043.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADOX">
+      <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
+      <VersionMajor>6</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
