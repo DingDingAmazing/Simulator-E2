@@ -37,6 +37,8 @@ protected:
 	void Function_Explain_ReleaseDisplay();
 	void Function_Explain_ChooseMode();
 	void Function_Explain_SlotFound();
+	void Function_Explain_RGearInterrupt();
+	void Function_Explain_PassSlot();
 	void Function_Explain_AutosteeringActive();
 	void Function_Explain_ProgressBackward();
 	void Function_Explain_ProgressBackward1();
@@ -50,6 +52,9 @@ protected:
 	void Function_Explain();
 	void Fuction_JudgeForward();
 	void Fuction_JudgeGearSwith();
+	void Function_Reset_APAParkMode();
+	void Function_TurnSpeed10();
+	void Function_TurnSpeed0();
 
 	void ODIEvent_ActivateAPAonInfotainmentDisplay();
 	void ODIEvent_CancelAPAonInfotainmentDisplay();
@@ -59,12 +64,14 @@ protected:
 	void MSG_AcquireFocus();
 	void MSG_FirstDisplay();
 	void MSG_ReleaseFocus();
+	void MSG_RGearInterrupt();
 	void MSG_SoftButton1Left();
 	void MSG_SoftButton2Right();
 	void MSG_SoftButton3Perpendicular();
 	void MSG_SoftButton4Parallel();
 	void MSG_ChooseMode();
 	void MSG_SlotSearch();
+	void MSG_PassSlot();
 	void MSG_ChimeParkMode();
 	void MSG_ChimeEnterAPA();
 	void MSG_ChimeReleaseAPA();

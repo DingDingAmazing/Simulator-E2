@@ -63,16 +63,18 @@ int autosteeringCount = 0;
 int APAStep = 0;
 ///
 /*
-step=0  ∞¥º¸«∞ºÏ≤ÈÕ£≥µ◊¥Ã¨                øÿº˛¥•∑¢          ºÏ≤ÈAPAGears==P/D∫ÕAPASpeed==0∏¯≥ˆexplain
-step=1  ∞¥º¸ ±                           ∑¢ÀÕODIEvent      ºÏ≤ÈAPAGainDisplay==false∏¯≥ˆexplain
-step=2  ª˘”⁄step1ªÒ»°ΩÁ√Ê ±≥ı ºªØfocus    DataCallback      ºÏ≤ÈAPAGainDisplay==true∏¯≥ˆexplain             ∑¢ÀÕODIIndication∫ÕODIDynamicData
-step=3  ª˘”⁄step2‘Ÿ¥Œ∞¥º¸»°œ˚APA          ∑¢ÀÕODIEvent      release display∏¯≥ˆexplain                      step÷√0
-step=4  ª˘”⁄step2 touch—°‘Ò≤¥≥µ¿‡–Õ       DataCallback      ºÏ≤È∏¯≥ˆAPAParkMode[]∏¯≥ˆexplain
-step=5  ª˘”⁄step2/4/7 ÷∂ØÃ·π©slot          øÿº˛¥•∑¢           ºÏ≤ÈAPAGears==D∫ÕAPASpeed>0∏¯≥ˆexplain          ∑¢ÀÕODIIndication∫ÕODIDynamicData
-step=6  ª˘”⁄step4/7À—À˜π˝≥Ã÷–RµµÕÀ≥ˆ      øÿº˛¥•∑¢           ºÏ≤ÈAPAGears==R∏¯≥ˆexplain                      ∑¢ÀÕODIEvent∫ÕODIIndication∫ÕODIDynamicData
-step=7  ª˘”⁄step5π˝≥µŒªºÃ–¯À—À˜           OnTimer 15s¥•∑¢    ºÏ≤ÈSlotFound==true«–ªªªÿÀ—À˜ΩÁ√Ê ∏¯≥ˆexplain    SlotFound÷√0  ∑¢ÀÕODIIndication∫ÕODIDynamicData
+| step num | prerequisite               | trigger     | do something                         | explain                   | remarks                                              |
+|:--------:|:--------------------------:|:-----------:|:------------------------------------:|:-------------------------:|:----------------------------------------------------:|
+| step=0   | before.press.APA.key       | gear.Bar    | check.gear.speed                     | explain:Gears?D?N.Speed?30|                                                      |
+| step=1   | when.press.APA.key         | APA.button  | active.APA.HMI, check.APAGainDisplay | explain:HMI.not.Gain      | send.ODIEvent, if.D.gear.do.speed.10                 |
+| step=2   | pre.step.1, HMI.Gain       | DataCallback| initial.HMI.focus                    | explain:HMI.Gain          | send ODIIndication, ODIDynamicData, reset APAParkMode|
+| step=3   | pre.step>1, twice.APA.key  | APA.button  | release display                      | explain:APA.quit          | send ODIEvent, reset step                            |
+| step=4   | pre.step2, touch.park.mode | DataCallback| set.APAParkMode, change.HMI.focus    | explain:current.mode      | send ODIDynamicData                                  |
+| step=5   | pre.step2/4, get.slot      | slot.button | check.gear.speed, reset.timer.15     | explain:slot.find         | send ODIIndication, ODIDynamicData                   |
+| step=6   | pre.step2/4, R.gear        | gear.Bar    | quit.APA                             | explain:APA.quit          | send ODIEvent, ODIIndication, ODIDynamicData         |
+| step=7   | pre.step5, pass.slot       | OnTimer.15  | back.to.search.HMI, back.to.step.4   | explain:pass.slot         | send ODIIndication, ODIDynamicData                   |
 
-step=8  if gears R, speed 0, if step5-->step8 active autosteering       explain-->speed disable-->msg-->SetTimer 2s
+| step=8   | pre.step5, R.gears.speed.0 | gear.Bar    | active.autosteering, SetTimer.2s     | explain:autosteering      | send ODIIndication, ODIDynamicData                   |
 step=9  if OnTimer 2s, if step8-->step9 progressBackward                explain-->speed 10-->KillTimer 2s-->msg per 200ms
 step=10 if progressEnum 100, if step9-->step10 progressStop             explain-->speed 0-->msg-->SetTimer 1s
 step=11 if OnTimer 1s, if step10-->step11 progressForward1               explain-->msg-->KillTimer 1s
@@ -85,9 +87,8 @@ step=16 if OnTimer 3s, if step15-->step16 exitAPA                       explain-
 step=17 if press APAUnavaible-->step17                                  explain-->msg-->KillTimer 200ms/1s/2s/3s-->step0
 step=18 if brake-->step18                                               explain-->msg-->step0
 
-step=13 ÷±Ω”≈–∂œ“Ï≥£«ÈøˆÕÀ≥ˆAPA           ∑¢ÀÕODIEvent∫ÕODIIndication∫ÕODIDynamicData ∏¯≥ˆexplain step÷√0
-step=15 ÷±Ω”≈–∂œ≥¨ÀŸ30                   øÿº˛¥•∑¢           º«¬º÷Æ«∞µƒstep ∏¯≥ˆexplain                       ∑¢ÀÕODIIndication∫ÕODIDynamicData
-step=16 …≤≥µÕÀ≥ˆ
+step=15 Áõ¥Êé•Âà§Êñ≠Ë∂ÖÈÄü30                   Êéß‰ª∂Ëß¶Âèë           ËÆ∞ÂΩï‰πãÂâçÁöÑstep ÁªôÂá∫explain                       ÂèëÈÄÅODIIndicationÂíåODIDynamicData
+step=16 ÂàπËΩ¶ÈÄÄÂá∫
 step=17 lose display focus
 chime 60ms
 */
@@ -123,7 +124,7 @@ BOOL APAFrame::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
-	SetWindowPos(&CWnd::wndTop, 750, 30, 580, 280, NULL);//≥ı ºªØ ±µƒΩÁ√Ê¥Û–°
+	SetWindowPos(&CWnd::wndTop, 750, 30, 580, 280, NULL);//ÂàùÂßãÂåñÊó∂ÁöÑÁïåÈù¢Â§ßÂ∞è
 
 	APAFunc.Function_Initialize();
 
@@ -156,19 +157,19 @@ END_MESSAGE_MAP()
 //----------------------------explain-------------------------------------//
 void APAFrame::Function_Explain_GearSpeed()
 {
-	if (APASpeed == 0)
+	if (APASpeed < 30)
 	{
-		if ((APAGears == 1) || (APAGears == 3))
-			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Warning! Speed 0 km/s but move mode is not ready";
+		if ((APAGears == 0) || (APAGears == 3))
+			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Gear Warning! APA function can't enable";
 		else
-			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Now move mode is ok, please press the APA key to acquire display focus";
+			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "It's ok! You can press the APA key to get APA HMI";
 	}
 	else
 	{
-		if ((APAGears == 1) || (APAGears == 3))
-			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Warning! Speed 0 km/s and move mode is not ready";
+		if ((APAGears == 0) || (APAGears == 3))
+			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Gear Warning! APA function can't enable";
 		else
-			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Warning! There is a speed exception";
+			APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Speed Warning! APA function can't enable";
 	}
 }
 
@@ -200,6 +201,16 @@ void APAFrame::Function_Explain_ChooseMode()
 void APAFrame::Function_Explain_SlotFound()
 {
 	APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Congratulations! A parking slot found! Stop and shift to reverse";
+}
+
+void APAFrame::Function_Explain_RGearInterrupt()
+{
+	APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "The APA was interrupted by your shifting to R gear!";
+}
+
+void APAFrame::Function_Explain_PassSlot()
+{
+	APAFunc.Ctrl_APAForm.GetControl()->lab_Explain_Content->Text = "Warning! You just drove pass the slot!";
 }
 
 void APAFrame::Function_Explain_AutosteeringActive()
@@ -280,6 +291,12 @@ void APAFrame::Function_Explain()
 	case 5:
 		Function_Explain_SlotFound();
 		break;
+	case 6:
+		Function_Explain_RGearInterrupt();
+		break;
+	case 7:
+		Function_Explain_PassSlot();
+		break;
 	case 8:
 		Function_Explain_AutosteeringActive();
 		break;
@@ -330,9 +347,23 @@ void APAFrame::Fuction_JudgeGearSwith()
 {
 	switch (APAStep)
 	{
-	case 5:
-		if ((APASpeed == 0) && (APAGears == 3))
+	case 2:
+		if (APAGears == 3)
+			APAStep = 6;
+		else if (APAGears == 2)
+			Function_TurnSpeed10();
+		break;
+	case 4:
+		if (APAGears == 3)
 		{
+			APAStep = 6;
+		}
+		break;
+	case 5:
+		if (APAGears == 3)
+		{
+			KillTimer(APA_Period_15s);
+			Function_TurnSpeed0();
 			APAStep = 8;
 			Function_Explain();
 
@@ -343,16 +374,22 @@ void APAFrame::Fuction_JudgeGearSwith()
 
 			SetTimer(APA_Period_2s, 2000, NULL);
 		}
+		else if ((APAGears == 0) || (APAGears == 1))
+		{
+			KillTimer(APA_Period_15s);
+		}
+		else
+		{
+			Function_TurnSpeed10();
+			SetTimer(APA_Period_15s, 15000, NULL);
+		}
 		break;
 	case 11:
 		if (APAGears == 2)
 		{
 			APAStep = 12;
-			APAFunc.Ctrl_APAForm.GetControl()->Bnt_Speed->Text = "10 Km/s";
+			Function_TurnSpeed10();
 			Function_Explain();
-
-			chooseFoucs = ::FindWindow(NULL, _T("E2LB Simulator"));
-			::SendMessage(chooseFoucs, MESSAGE_APASpeed10, 0, 0);
 		}
 		break;
 	case 14:
@@ -360,14 +397,45 @@ void APAFrame::Fuction_JudgeGearSwith()
 		{
 			APAStep = 9;
 			Function_Explain();
-
-			chooseFoucs = ::FindWindow(NULL, _T("E2LB Simulator"));
-			::SendMessage(chooseFoucs, MESSAGE_APASpeed10, 0, 0);
+			Function_TurnSpeed10();
 		}
 		break;
 	default:
 		break;
 	}
+
+	if (APAStep == 6)
+	{
+		Function_Explain();
+		MSG_RGearInterrupt();
+		KillTimer(APA_Period_200ms);
+		APAStep = 0;
+		Function_Explain();
+	}
+}
+
+void APAFrame::Function_Reset_APAParkMode()
+{
+	APAParkMode[1] = 1;
+	APAParkMode[2] = 0;
+	APAParkMode[3] = 1;
+	APAParkMode[4] = 0;
+}
+
+void APAFrame::Function_TurnSpeed0()
+{
+	chooseFoucs = ::FindWindow(NULL, _T("E2LB Simulator"));
+	::SendMessage(chooseFoucs, MESSAGE_APASpeed0, 0, 0);
+	APAFunc.Ctrl_APAForm.GetControl()->Bnt_Speed->Text = "0 Km/s";
+	APASpeed = 0;
+}
+
+void APAFrame::Function_TurnSpeed10()
+{
+	chooseFoucs = ::FindWindow(NULL, _T("E2LB Simulator"));
+	::SendMessage(chooseFoucs, MESSAGE_APASpeed10, 0, 0);
+	APAFunc.Ctrl_APAForm.GetControl()->Bnt_Speed->Text = "10 Km/s";
+	APASpeed = 10;
 }
 //-----------------------------------------------------------------//
 
@@ -518,7 +586,29 @@ void APAFrame::MSG_ReleaseFocus()
 	Sleep(10);
 	ODIDynamicData_APA(3, 8, 0);//Spare
 
+	Sleep(2000);
+	ODIEvent_CancelAPAonInfotainmentDisplay();
+}
+
+void APAFrame::MSG_RGearInterrupt()
+{
+	MSG_ChimeReleaseAPA();
 	Sleep(10);
+
+	APAIndicationID[7] = 1;//SelectHeader
+	APAIndicationID[9] = 1;//APA2
+	APAIndicationID[10] = 0;//SoftButton1 Invisible
+	APAIndicationID[11] = 0;//SoftButton2 Invisible
+	APAIndicationID[12] = 0;//SoftButton3 Invisible
+	APAIndicationID[13] = 0;//SoftButton4 Invisible
+	ODIIndication_APA();
+
+	Sleep(40);
+	ODIDynamicData_APA(3, 4, 0x1A);//Cancel
+	Sleep(20);
+	ODIDynamicData_APA(3, 8, 0);//Spare
+
+	Sleep(2000);
 	ODIEvent_CancelAPAonInfotainmentDisplay();
 }
 
@@ -568,6 +658,38 @@ void APAFrame::MSG_SlotSearch()
 		ODIDynamicData_APA(3, 4, 19);
 	if ((APAParkMode[2] == 1) && (APAParkMode[4] == 1))
 		ODIDynamicData_APA(3, 4, 22);
+}
+
+void APAFrame::MSG_PassSlot()
+{
+	APAIndicationID[7] = 0;//SelectHeader
+	ODIIndication_APA();
+	Sleep(10);
+	MSG_ChooseMode();
+	if ((APAParkMode[1] == 1) && (APAParkMode[3] == 1))
+	{
+		MSG_SoftButton2Right();
+		Sleep(10);
+		MSG_SoftButton4Parallel();
+	}
+	else if ((APAParkMode[2] == 1) && (APAParkMode[3] == 1))
+	{
+		MSG_SoftButton1Left();
+		Sleep(10);
+		MSG_SoftButton4Parallel();
+	}
+	else if ((APAParkMode[1] == 1) && (APAParkMode[4] == 1))
+	{
+		MSG_SoftButton2Right();
+		Sleep(10);
+		MSG_SoftButton3Perpendicular();
+	}
+	else if ((APAParkMode[2] == 1) && (APAParkMode[4] == 1))
+	{
+		MSG_SoftButton1Left();
+		Sleep(10);
+		MSG_SoftButton3Perpendicular();
+	}
 }
 
 ///the same as MSG_ChimeEnterAPA
@@ -787,13 +909,15 @@ HRESULT APAFrame::Function_APAGears_Change(WPARAM wParam, LPARAM lParam)
 
 HRESULT APAFrame::Function_APAkeyPress(WPARAM wParam, LPARAM lParam)
 {
-	if ((APAStep == 0) || (APAStep == 1))
+	if (((APAStep==0) || (APAStep==1)) && (APASpeed<30) && ((APAGears==1) || (APAGears==2)))
 	{
 		MSG_AcquireFocus();
+		Function_Reset_APAParkMode();
+		autosteeringCount = 0;
 		APAStep = 1;
 	}
 
-	else
+	else if (APAStep > 1)
 	{
 		MSG_ReleaseFocus();
 		APAStep = 3;
@@ -814,12 +938,15 @@ HRESULT APAFrame::Function_APAkeyPress(WPARAM wParam, LPARAM lParam)
 
 HRESULT APAFrame::Function_APASlotSearch(WPARAM wParam, LPARAM lParam)
 {
-	if (((APAStep == 4) || (APAStep == 2)) && (MoveForwardFlag == true))
+	if (((APAStep == 4) || (APAStep == 2)) && (APASpeed < 30))
 	{
 		MSG_ChimeFindSlot();
 		Sleep(10);
 		MSG_SlotSearch();
-
+		if (MoveForwardFlag == true)
+		{
+			SetTimer(APA_Period_15s, 15000, NULL);
+		}
 		APAStep = 5;
 		Function_Explain();
 	}
@@ -839,6 +966,11 @@ HRESULT APAFrame::Function_ODIAction_CntrStack_LS(WPARAM wParam, LPARAM lParam)
 			SetTimer(APA_Period_200ms, 200, NULL);
 			MSG_FirstDisplay();
 			Function_Explain();
+
+			if (APAGears == 2)
+			{
+				Function_TurnSpeed10();
+			}
 		}
 		break;
 	case 5:
@@ -848,8 +980,8 @@ HRESULT APAFrame::Function_ODIAction_CntrStack_LS(WPARAM wParam, LPARAM lParam)
 		APAStep = 4;
 		if (APAParkMode[1] == 1)//if pre is right, then send msg and change focus
 		{
-			APAParkMode[1] = 0;//right
-			APAParkMode[2] = 1;//left
+			APAParkMode[1] = 0;//not at right
+			APAParkMode[2] = 1;//at left
 			MSG_ChooseMode();
 			Sleep(10);
 			MSG_SoftButton1Left();
@@ -860,8 +992,8 @@ HRESULT APAFrame::Function_ODIAction_CntrStack_LS(WPARAM wParam, LPARAM lParam)
 		APAStep = 4;
 		if (APAParkMode[2] == 1)//if pre is left, then send msg and change focus
 		{
-			APAParkMode[1] = 1;//right
-			APAParkMode[2] = 0;//left
+			APAParkMode[1] = 1;//at right
+			APAParkMode[2] = 0;//not at left
 			MSG_ChooseMode();
 			Sleep(10);
 			MSG_SoftButton2Right();
@@ -874,8 +1006,8 @@ HRESULT APAFrame::Function_ODIAction_CntrStack_LS(WPARAM wParam, LPARAM lParam)
 		{
 			MSG_ChimeParkMode();//change mode chime
 			Sleep(10);
-			APAParkMode[3] = 0;//parallel
-			APAParkMode[4] = 1;//perpendicular
+			APAParkMode[3] = 0;//not at parallel
+			APAParkMode[4] = 1;//at perpendicular
 			MSG_ChooseMode();
 			Sleep(10);
 			MSG_SoftButton3Perpendicular();
@@ -888,8 +1020,8 @@ HRESULT APAFrame::Function_ODIAction_CntrStack_LS(WPARAM wParam, LPARAM lParam)
 		{
 			MSG_ChimeParkMode();//change mode chime
 			Sleep(10);
-			APAParkMode[3] = 1;//parallel
-			APAParkMode[4] = 0;//perpendicular
+			APAParkMode[3] = 1;//at parallel
+			APAParkMode[4] = 0;//not at perpendicular
 			MSG_ChooseMode();
 			Sleep(10);
 			MSG_SoftButton4Parallel();
@@ -950,8 +1082,7 @@ void APAFrame::OnTimer(UINT_PTR nIDEvent)
 				else if (APAStep == 12)
 					APAStep = 13;
 				Function_Explain();
-				chooseFoucs = ::FindWindow(NULL, _T("E2LB Simulator"));
-				::SendMessage(chooseFoucs, MESSAGE_APASpeed0, 0, 0);
+				Function_TurnSpeed0();
 				MSG_ProgressStop();
 				autosteeringCount++;
 				SetTimer(APA_Period_1s, 1000, NULL);
@@ -972,6 +1103,7 @@ void APAFrame::OnTimer(UINT_PTR nIDEvent)
 				//chooseFoucs = ::FindWindow(NULL, _T("E2LB Simulator"));
 				//::SendMessage(chooseFoucs, MESSAGE_APASpeedEnabled, 0, 0);
 				MSG_ParkComplete();
+				autosteeringCount = 0;
 				SetTimer(APA_Period_3s, 3000, NULL);
 				KillTimer(APA_Period_1s);
 			}
@@ -996,9 +1128,7 @@ void APAFrame::OnTimer(UINT_PTR nIDEvent)
 		{
 			APAStep = 9;
 			Function_Explain();
-			chooseFoucs = ::FindWindow(NULL, _T("E2LB Simulator"));
-			::SendMessage(chooseFoucs, MESSAGE_APASpeed10, 0, 0);
-			APAFunc.Ctrl_APAForm.GetControl()->Bnt_Speed->Text = "10 Km/s";
+			Function_TurnSpeed10();
 			MSG_ProgressBackward();
 			KillTimer(APA_Period_2s);
 		}
@@ -1012,6 +1142,17 @@ void APAFrame::OnTimer(UINT_PTR nIDEvent)
 			APAStep = 0;
 			KillTimer(APA_Period_200ms);
 			KillTimer(APA_Period_3s);
+		}
+		break;
+	case APA_Period_15s:
+		if (APAStep == 5)
+		{
+			APAStep = 7;
+			Function_Explain();
+			MSG_PassSlot();
+			APAStep = 4;
+			Function_Explain();
+			KillTimer(APA_Period_15s);
 		}
 		break;
 	default:

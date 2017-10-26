@@ -139,7 +139,7 @@
             this.lab_Explain_Content.Name = "lab_Explain_Content";
             this.lab_Explain_Content.Size = new System.Drawing.Size(418, 46);
             this.lab_Explain_Content.TabIndex = 6;
-            this.lab_Explain_Content.Text = "Please slow down to 0 km/s and shift to gear P or D before you press the APA key";
+            this.lab_Explain_Content.Text = "Before pressing the APA key, please don't shift to P/R gear";
             // 
             // Lab_Explain2
             // 
