@@ -909,7 +909,7 @@ HRESULT APAFrame::Function_APAGears_Change(WPARAM wParam, LPARAM lParam)
 
 HRESULT APAFrame::Function_APAkeyPress(WPARAM wParam, LPARAM lParam)
 {
-	if (((APAStep==0) || (APAStep==1)) && (APASpeed<30) && ((APAGears==1) || (APAGears==2)))
+	if (((APAStep==0) || (APAStep==1)) && (APASpeed<30) && (APAGears>0))
 	{
 		MSG_AcquireFocus();
 		Function_Reset_APAParkMode();
