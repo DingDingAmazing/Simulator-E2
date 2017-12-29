@@ -5,10 +5,7 @@
 *.suo
 *.user
 *.userosscache
-*.sln
 *.sln.docstates
-*.vcxproj.filters
-*.vcxproj.user
 
 # Other files
 Lib/
